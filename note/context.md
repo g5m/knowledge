@@ -1,6 +1,6 @@
 # context
 
-<img src="/Users/guomiao/Library/Application%20Support/typora-user-images/image-20220117214911665.png" alt="image-20220117214911665" style="zoom:50%;" />
+<img src="context.assets/image-20220117214911665-2497007.png" alt="img" style="zoom:80%;" />
 
 ## 上下文
 
@@ -43,11 +43,11 @@ type Context interface {
 
 如图所示，每一个请求会创建一个goroutine进行处理，在处理的过程中会创建子协程进行协助。如图所示，请求进来后，会首先创建一个主协程进行处理，在处理过程中会创建子协程进行协助，如果不适用context进行流程，会出现其中某一个协程出现错误之后，其他的协程由于未接收到错误的信号继续执行，导致资源浪费。
 
-<img src="/Users/guomiao/Library/Application%20Support/typora-user-images/image-20220118010107542.png" alt="image-20220118010107542" style="zoom:80%;" />
+![img](context.assets/image-20220118010107542-2497051.png)
 
 使用context进行并发控制能够在某一协程出现错误之后及时地将信息同步至其他协程，从而可以使还在运行中的协程退出，减少资源的浪费。
 
-<img src="/Users/guomiao/Library/Application%20Support/typora-user-images/image-20220118005914542.png" alt="image-20220118005914542" style="zoom:50%;" />
+<img src="context.assets/image-20220118005914542.png" alt="img" style="zoom:50%;" />
 
 协程之间存在层级关系，为树状结构，上层的协程应该有能力控制子协程的退出，因此context之间也应该有相似的树状结构。context包中提供了两种类型的context根节点：`background`和`todo`,这两种类型的context都是`emptyContext`的实例。
 
